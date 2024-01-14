@@ -15,7 +15,7 @@ export default class PostDislikedNotification extends Notification {
     const notification = this.attrs.notification;
     const user = notification.fromUser();
 
-    return app.translator.trans('flarum-dislikes.forum.notifications.post_disliked_text', { user, count: 1 });
+    return app.translator.trans('nodeloc-dislikes.forum.notifications.post_disliked_text', { user, count: 1 });
   }
 
   excerpt() {

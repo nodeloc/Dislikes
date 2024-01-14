@@ -27,7 +27,7 @@ class ListPostsTest extends TestCase
     {
         parent::setUp();
 
-        $this->extension('flarum-dislikes');
+        $this->extension('nodeloc-dislikes');
 
         $this->prepareDatabase([
             'discussions' => [

@@ -26,7 +26,7 @@ export default function () {
         .map((user) => {
           return (
             <Link href={app.route.user(user)}>
-              {user === app.session.user ? app.translator.trans('flarum-dislikes.forum.post.you_text') : username(user)}
+              {user === app.session.user ? app.translator.trans('nodeloc-dislikes.forum.post.you_text') : username(user)}
             </Link>
           );
         });
@@ -36,7 +36,7 @@ export default function () {
       // with a full list of names.
       if (overLimit) {
         const count = post.dislikesCount() - names.length;
-        const label = app.translator.trans('flarum-dislikes.forum.post.others_link', { count });
+        const label = app.translator.trans('nodeloc-dislikes.forum.post.others_link', { count });
 
         if (app.forum.attribute('canSearchUsers')) {
           names.push(
@@ -59,7 +59,7 @@ export default function () {
         'disliked',
         <div className="Post-dislikedBy">
           {icon('far fa-thumbs-down')}
-          {app.translator.trans(`flarum-dislikes.forum.post.disliked_by${dislikes[0] === app.session.user ? '_self' : ''}_text`, {
+          {app.translator.trans(`nodeloc-dislikes.forum.post.disliked_by${dislikes[0] === app.session.user ? '_self' : ''}_text`, {
             count: names.length,
             users: punctuateSeries(names),
           })}

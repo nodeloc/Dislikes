@@ -9,7 +9,7 @@ import addDislikesTabToUserProfile from './addDislikesTabToUserProfile';
 
 export { default as extend } from './extend';
 
-app.initializers.add('flarum-dislikes', () => {
+app.initializers.add('nodeloc-dislikes', () => {
   app.notificationComponents.postDisliked = PostDislikedNotification;
 
   addDislikeAction();
@@ -20,7 +20,7 @@ app.initializers.add('flarum-dislikes', () => {
     items.add('postDisliked', {
       name: 'postDisliked',
       icon: 'far fa-thumbs-down',
-      label: app.translator.trans('flarum-dislikes.forum.settings.notify_post_disliked_label'),
+      label: app.translator.trans('nodeloc-dislikes.forum.settings.notify_post_disliked_label'),
     });
   });
 });

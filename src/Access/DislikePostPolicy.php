@@ -28,7 +28,7 @@ class DislikePostPolicy extends AbstractPolicy
 
     public function dislike(User $actor, Post $post)
     {
-        if ($actor->id === $post->user_id && ! (bool) $this->settings->get('flarum-dislikes.dislike_own_post')) {
+        if ($actor->id === $post->user_id && ! (bool) $this->settings->get('nodeloc-dislikes.dislike_own_post')) {
             return $this->deny();
         }
     }

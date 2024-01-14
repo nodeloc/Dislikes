@@ -1,4 +1,4 @@
-flarum-dislikes:
+nodeloc-dislikes:
   admin:
     permissions:
       dislike_posts_label: 点踩

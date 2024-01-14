@@ -11,7 +11,7 @@ export default function addDislikesTabToUserProfile() {
     items.add(
       'dislikes',
       <LinkButton href={app.route('user.dislikes', { username: user?.slug() })} icon="far fa-thumbs-down">
-        {app.translator.trans('flarum-dislikes.forum.user.dislikes_link')}
+        {app.translator.trans('nodeloc-dislikes.forum.user.dislikes_link')}
       </LinkButton>,
       88
     );

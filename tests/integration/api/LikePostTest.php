@@ -23,7 +23,7 @@ class DislikePostTest extends TestCase
     {
         parent::setUp();
 
-        $this->extension('flarum-dislikes');
+        $this->extension('nodeloc-dislikes');
 
         $this->prepareDatabase([
             'users' => [
@@ -63,7 +63,7 @@ class DislikePostTest extends TestCase
     public function can_dislike_a_post_if_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canDislikeOwnPost = null)
     {
         if (! is_null($canDislikeOwnPost)) {
-            $this->setting('flarum-dislikes.dislike_own_post', $canDislikeOwnPost);
+            $this->setting('nodeloc-dislikes.dislike_own_post', $canDislikeOwnPost);
         }
 
         $this->rewriteDefaultPermissionsAfterBoot();
@@ -83,7 +83,7 @@ class DislikePostTest extends TestCase
     public function cannot_dislike_a_post_if_not_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canDislikeOwnPost = null)
     {
         if (! is_null($canDislikeOwnPost)) {
-            $this->setting('flarum-dislikes.dislike_own_post', $canDislikeOwnPost);
+            $this->setting('nodeloc-dislikes.dislike_own_post', $canDislikeOwnPost);
         }
 
         $this->rewriteDefaultPermissionsAfterBoot();
@@ -103,7 +103,7 @@ class DislikePostTest extends TestCase
     public function can_disdislike_a_post_if_disliked_and_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canDislikeOwnPost = null)
     {
         if (! is_null($canDislikeOwnPost)) {
-            $this->setting('flarum-dislikes.dislike_own_post', $canDislikeOwnPost);
+            $this->setting('nodeloc-dislikes.dislike_own_post', $canDislikeOwnPost);
         }
 
         $this->rewriteDefaultPermissionsAfterBoot();

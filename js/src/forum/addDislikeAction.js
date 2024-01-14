@@ -38,7 +38,7 @@ export default function () {
           }
         }}
       >
-        {app.translator.trans(isDisliked ? 'flarum-dislikes.forum.post.undislike_link' : 'flarum-dislikes.forum.post.dislike_link')}
+        {app.translator.trans(isDisliked ? 'nodeloc-dislikes.forum.post.undislike_link' : 'nodeloc-dislikes.forum.post.dislike_link')}
       </Button>
     );
   });

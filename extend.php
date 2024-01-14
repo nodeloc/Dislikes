@@ -83,7 +83,7 @@ return [
         ->addFilter(DislikedFilter::class),
 
     (new Extend\Settings())
-        ->default('flarum-dislikes.dislike_own_post', true),
+        ->default('nodeloc-dislikes.dislike_own_post', true),
 
     (new Extend\Policy())
         ->modelPolicy(Post::class, Access\DislikePostPolicy::class),

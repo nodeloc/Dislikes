@@ -32,7 +32,7 @@ export default class PostDislikesModal<CustomAttrs extends IPostDislikesModalAtt
   }
 
   title() {
-    return app.translator.trans('flarum-dislikes.forum.post_dislikes.title');
+    return app.translator.trans('nodeloc-dislikes.forum.post_dislikes.title');
   }
 
   content() {
@@ -60,7 +60,7 @@ export default class PostDislikesModal<CustomAttrs extends IPostDislikesModalAtt
             <div className="Form Form--centered">
               <div className="Form-group">
                 <Button className="Button Button--block" onclick={() => this.state.loadNext()} loading={this.state.isLoadingNext()}>
-                  {app.translator.trans('flarum-dislikes.forum.post_dislikes.load_more_button')}
+                  {app.translator.trans('nodeloc-dislikes.forum.post_dislikes.load_more_button')}
                 </Button>
               </div>
             </div>
