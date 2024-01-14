@@ -1,5 +1,5 @@
 {
-    "name": "flarum/dislikes",
+    "name": "nodeloc/dislikes",
     "description": "Allow users to dislike posts.",
     "type": "flarum-extension",
     "keywords": [

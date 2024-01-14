@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "@flarum/dislikes",
+    "name": "@nodeloc/dislikes",
     "version": "0.0.0",
     "prettier": "@flarum/prettier-config",
     "devDependencies": {
