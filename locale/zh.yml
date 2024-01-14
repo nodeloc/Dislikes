@@ -1,0 +1,24 @@
+flarum-dislikes:
+  admin:
+    permissions:
+      dislike_posts_label: 点踩
+    settings:
+      dislike_own_posts_help: 启用此项，以允许用户点踩自己的帖子。
+      dislike_own_posts_label: 允许自踩
+  forum:
+    notifications:
+      others_text: '=> core.ref.some_others'
+      post_disliked_text: '{username} 踩了你'
+    post:
+      dislike_link: 踩
+      disliked_by_self_text: '{users} 觉得很逊'
+      disliked_by_text: '{count, plural, one {{users}} other {{users}}} 觉得很逊'
+      others_link: '=> core.ref.some_others'
+      undislike_link: 取消踩
+      you_text: '=> core.ref.you'
+    post_dislikes:
+      title: 点踩的用户
+    settings:
+      notify_post_liked_label: 有人踩我
+    user:
+      dislikes_link: 踩
