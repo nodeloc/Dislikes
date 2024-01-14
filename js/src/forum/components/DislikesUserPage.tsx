@@ -2,9 +2,9 @@ import app from 'flarum/forum/app';
 import PostsUserPage from 'flarum/forum/components/PostsUserPage';
 
 /**
- * The `LikesUserPage` component shows posts which user the user liked.
+ * The `DislikesUserPage` component shows posts which user the user disliked.
  */
-export default class LikesUserPage extends PostsUserPage {
+export default class DislikesUserPage extends PostsUserPage {
   /**
    * Load a new page of the user's activity feed.
    *
@@ -15,7 +15,7 @@ export default class LikesUserPage extends PostsUserPage {
     return app.store.find('posts', {
       filter: {
         type: 'comment',
-        likedBy: this.user.id(),
+        dislikedBy: this.user.id(),
       },
       page: { offset, limit: this.loadLimit },
       sort: '-createdAt',

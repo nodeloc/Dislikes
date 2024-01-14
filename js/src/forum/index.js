@@ -2,25 +2,25 @@ import { extend } from 'flarum/common/extend';
 import app from 'flarum/forum/app';
 import NotificationGrid from 'flarum/forum/components/NotificationGrid';
 
-import addLikeAction from './addLikeAction';
-import addLikesList from './addLikesList';
-import PostLikedNotification from './components/PostLikedNotification';
-import addLikesTabToUserProfile from './addLikesTabToUserProfile';
+import addDislikeAction from './addDislikeAction';
+import addDislikesList from './addDislikesList';
+import PostDislikedNotification from './components/PostDislikedNotification';
+import addDislikesTabToUserProfile from './addDislikesTabToUserProfile';
 
 export { default as extend } from './extend';
 
-app.initializers.add('flarum-likes', () => {
-  app.notificationComponents.postLiked = PostLikedNotification;
+app.initializers.add('flarum-dislikes', () => {
+  app.notificationComponents.postDisliked = PostDislikedNotification;
 
-  addLikeAction();
-  addLikesList();
-  addLikesTabToUserProfile();
+  addDislikeAction();
+  addDislikesList();
+  addDislikesTabToUserProfile();
 
   extend(NotificationGrid.prototype, 'notificationTypes', function (items) {
-    items.add('postLiked', {
-      name: 'postLiked',
-      icon: 'far fa-thumbs-up',
-      label: app.translator.trans('flarum-likes.forum.settings.notify_post_liked_label'),
+    items.add('postDisliked', {
+      name: 'postDisliked',
+      icon: 'far fa-thumbs-down',
+      label: app.translator.trans('flarum-dislikes.forum.settings.notify_post_disliked_label'),
     });
   });
 });

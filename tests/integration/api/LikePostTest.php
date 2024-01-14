@@ -7,7 +7,7 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Tests\integration\api;
+namespace Flarum\Dislikes\Tests\integration\api;
 
 use Carbon\Carbon;
 use Flarum\Post\CommentPost;
@@ -15,7 +15,7 @@ use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-class LikePostTest extends TestCase
+class DislikePostTest extends TestCase
 {
     use RetrievesAuthorizedUsers;
 
@@ -23,7 +23,7 @@ class LikePostTest extends TestCase
     {
         parent::setUp();
 
-        $this->extension('flarum-likes');
+        $this->extension('flarum-dislikes');
 
         $this->prepareDatabase([
             'users' => [
@@ -52,91 +52,91 @@ class LikePostTest extends TestCase
 
     protected function rewriteDefaultPermissionsAfterBoot()
     {
-        $this->database()->table('group_permission')->where('permission', 'discussion.likePosts')->delete();
-        $this->database()->table('group_permission')->insert(['permission' => 'discussion.likePosts', 'group_id' => 5]);
+        $this->database()->table('group_permission')->where('permission', 'discussion.dislikePosts')->delete();
+        $this->database()->table('group_permission')->insert(['permission' => 'discussion.dislikePosts', 'group_id' => 5]);
     }
 
     /**
-     * @dataProvider allowedUsersToLike
+     * @dataProvider allowedUsersToDislike
      * @test
      */
-    public function can_like_a_post_if_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canLikeOwnPost = null)
+    public function can_dislike_a_post_if_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canDislikeOwnPost = null)
     {
-        if (! is_null($canLikeOwnPost)) {
-            $this->setting('flarum-likes.like_own_post', $canLikeOwnPost);
+        if (! is_null($canDislikeOwnPost)) {
+            $this->setting('flarum-dislikes.dislike_own_post', $canDislikeOwnPost);
         }
 
         $this->rewriteDefaultPermissionsAfterBoot();
 
-        $response = $this->sendLikeRequest($postId, $authenticatedAs);
+        $response = $this->sendDislikeRequest($postId, $authenticatedAs);
 
         $post = CommentPost::query()->find($postId);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertNotNull($post->likes->where('id', $authenticatedAs)->first(), $message);
+        $this->assertNotNull($post->dislikes->where('id', $authenticatedAs)->first(), $message);
     }
 
     /**
-     * @dataProvider unallowedUsersToLike
+     * @dataProvider unallowedUsersToDislike
      * @test
      */
-    public function cannot_like_a_post_if_not_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canLikeOwnPost = null)
+    public function cannot_dislike_a_post_if_not_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canDislikeOwnPost = null)
     {
-        if (! is_null($canLikeOwnPost)) {
-            $this->setting('flarum-likes.like_own_post', $canLikeOwnPost);
+        if (! is_null($canDislikeOwnPost)) {
+            $this->setting('flarum-dislikes.dislike_own_post', $canDislikeOwnPost);
         }
 
         $this->rewriteDefaultPermissionsAfterBoot();
 
-        $response = $this->sendLikeRequest($postId, $authenticatedAs);
+        $response = $this->sendDislikeRequest($postId, $authenticatedAs);
 
         $post = CommentPost::query()->find($postId);
 
         $this->assertEquals(403, $response->getStatusCode(), $message);
-        $this->assertNull($post->likes->where('id', $authenticatedAs)->first());
+        $this->assertNull($post->dislikes->where('id', $authenticatedAs)->first());
     }
 
     /**
-     * @dataProvider allowedUsersToLike
+     * @dataProvider allowedUsersToDislike
      * @test
      */
-    public function can_dislike_a_post_if_liked_and_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canLikeOwnPost = null)
+    public function can_disdislike_a_post_if_disliked_and_allowed(int $postId, ?int $authenticatedAs, string $message, bool $canDislikeOwnPost = null)
     {
-        if (! is_null($canLikeOwnPost)) {
-            $this->setting('flarum-likes.like_own_post', $canLikeOwnPost);
+        if (! is_null($canDislikeOwnPost)) {
+            $this->setting('flarum-dislikes.dislike_own_post', $canDislikeOwnPost);
         }
 
         $this->rewriteDefaultPermissionsAfterBoot();
 
-        $this->sendLikeRequest($postId, $authenticatedAs);
-        $response = $this->sendLikeRequest($postId, $authenticatedAs, false);
+        $this->sendDislikeRequest($postId, $authenticatedAs);
+        $response = $this->sendDislikeRequest($postId, $authenticatedAs, false);
 
         $post = CommentPost::query()->find($postId);
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertNull($post->likes->where('id', $authenticatedAs)->first(), $message);
+        $this->assertNull($post->dislikes->where('id', $authenticatedAs)->first(), $message);
     }
 
-    public function allowedUsersToLike(): array
+    public function allowedUsersToDislike(): array
     {
         return [
-            [1, 1, 'Admin can like any post'],
-            [1, 3, 'User with permission can like other posts'],
-            [5, 3, 'User with permission can like own post by default'],
+            [1, 1, 'Admin can dislike any post'],
+            [1, 3, 'User with permission can dislike other posts'],
+            [5, 3, 'User with permission can dislike own post by default'],
         ];
     }
 
-    public function unallowedUsersToLike(): array
+    public function unallowedUsersToDislike(): array
     {
         return [
-            [1, null, 'Guest cannot like any post'],
-            [1, 2, 'User without permission cannot like any post'],
-            [5, 3, 'User with permission cannot like own post if setting off', false],
-            [6, 1, 'Admin cannot like own post if setting off', false],
+            [1, null, 'Guest cannot dislike any post'],
+            [1, 2, 'User without permission cannot dislike any post'],
+            [5, 3, 'User with permission cannot dislike own post if setting off', false],
+            [6, 1, 'Admin cannot dislike own post if setting off', false],
         ];
     }
 
-    protected function sendLikeRequest(int $postId, ?int $authenticatedAs, bool $liked = true): ResponseInterface
+    protected function sendDislikeRequest(int $postId, ?int $authenticatedAs, bool $disliked = true): ResponseInterface
     {
         if (! isset($authenticatedAs)) {
             $initial = $this->send(
@@ -152,7 +152,7 @@ class LikePostTest extends TestCase
             'json' => [
                 'data' => [
                     'attributes' => [
-                        'isLiked' => $liked
+                        'isDisliked' => $disliked
                     ]
                 ]
             ]

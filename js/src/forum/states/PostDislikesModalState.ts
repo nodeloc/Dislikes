@@ -1,9 +1,9 @@
 import PaginatedListState, { PaginatedListParams } from 'flarum/common/states/PaginatedListState';
 import User from 'flarum/common/models/User';
 
-export interface PostLikesModalListParams extends PaginatedListParams {
+export interface PostDislikesModalListParams extends PaginatedListParams {
   filter: {
-    liked: string;
+    disliked: string;
   };
   page?: {
     offset?: number;
@@ -11,7 +11,7 @@ export interface PostLikesModalListParams extends PaginatedListParams {
   };
 }
 
-export default class PostLikesModalState<P extends PostLikesModalListParams = PostLikesModalListParams> extends PaginatedListState<User, P> {
+export default class PostDislikesModalState<P extends PostDislikesModalListParams = PostDislikesModalListParams> extends PaginatedListState<User, P> {
   constructor(params: P, page: number = 1) {
     const limit = 10;
 

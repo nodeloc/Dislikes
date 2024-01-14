@@ -7,7 +7,7 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Api;
+namespace Flarum\Dislikes\Api;
 
 use Flarum\Discussion\Discussion;
 use Flarum\Http\RequestUtil;
@@ -17,9 +17,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Expression;
 use Psr\Http\Message\ServerRequestInterface;
 
-class LoadLikesRelationship
+class LoadDislikesRelationship
 {
-    public static $maxLikes = 4;
+    public static $maxDislikes = 4;
 
     public static function mutateRelation(BelongsToMany $query, ServerRequestInterface $request): BelongsToMany
     {
@@ -28,12 +28,12 @@ class LoadLikesRelationship
         $grammar = $query->getQuery()->getGrammar();
 
         return $query
-            // So that we can tell if the current user has liked the post.
+            // So that we can tell if the current user has disliked the post.
             ->orderBy(new Expression($grammar->wrap('user_id').' = '.$actor->id), 'desc')
             // Limiting a relationship results is only possible because
             // the Post model uses the \Staudenmeir\EloquentEagerLimit\HasEagerLimit
             // trait.
-            ->limit(self::$maxLikes);
+            ->limit(self::$maxDislikes);
     }
 
     /**
@@ -54,7 +54,7 @@ class LoadLikesRelationship
         }
 
         if ($loadable) {
-            $loadable->loadCount('likes');
+            $loadable->loadCount('dislikes');
         }
     }
 }

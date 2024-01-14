@@ -1,6 +1,6 @@
 {
-    "name": "flarum/likes",
-    "description": "Allow users to like posts.",
+    "name": "flarum/dislikes",
+    "description": "Allow users to dislike posts.",
     "type": "flarum-extension",
     "keywords": [
         "discussion"
@@ -8,14 +8,14 @@
     "license": "MIT",
     "support": {
         "issues": "https://github.com/flarum/framework/issues",
-        "source": "https://github.com/flarum/likes",
+        "source": "https://github.com/nodeloc/Dislikes",
         "forum": "https://discuss.flarum.org"
     },
-    "homepage": "https://flarum.org",
+    "homepage": "https://www.nodeloc.com",
     "funding": [
         {
             "type": "website",
-            "url": "https://flarum.org/donate/"
+            "url": "https://www.nodeloc.com"
         }
     ],
     "require": {
@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Flarum\\Likes\\": "src/"
+            "Flarum\\Dislikes\\": "src/"
         }
     },
     "extra": {
@@ -31,10 +31,10 @@
             "dev-main": "1.x-dev"
         },
         "flarum-extension": {
-            "title": "Likes",
+            "title": "Dislikes",
             "category": "feature",
             "icon": {
-                "name": "far fa-thumbs-up",
+                "name": "far fa-thumbs-down",
                 "backgroundColor": "#3A649D",
                 "color": "#fff"
             }
@@ -67,7 +67,7 @@
     "prefer-stable": true,
     "autoload-dev": {
         "psr-4": {
-            "Flarum\\Likes\\Tests\\": "tests/"
+            "Flarum\\Dislikes\\Tests\\": "tests/"
         }
     },
     "scripts": {

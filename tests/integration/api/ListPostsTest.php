@@ -7,11 +7,11 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Tests\integration\api\discussions;
+namespace Flarum\Dislikes\Tests\integration\api\discussions;
 
 use Carbon\Carbon;
 use Flarum\Group\Group;
-use Flarum\Likes\Api\LoadLikesRelationship;
+use Flarum\Dislikes\Api\LoadDislikesRelationship;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
 use Illuminate\Support\Arr;
@@ -27,7 +27,7 @@ class ListPostsTest extends TestCase
     {
         parent::setUp();
 
-        $this->extension('flarum-likes');
+        $this->extension('flarum-dislikes');
 
         $this->prepareDatabase([
             'discussions' => [
@@ -50,7 +50,7 @@ class ListPostsTest extends TestCase
                 ['id' => 111, 'username' => 'user111', 'email' => '111@machine.local', 'is_email_confirmed' => 1],
                 ['id' => 112, 'username' => 'user112', 'email' => '112@machine.local', 'is_email_confirmed' => 1],
             ],
-            'post_likes' => [
+            'post_dislikes' => [
                 ['user_id' => 102, 'post_id' => 101],
                 ['user_id' => 104, 'post_id' => 101],
                 ['user_id' => 105, 'post_id' => 101],
@@ -72,12 +72,12 @@ class ListPostsTest extends TestCase
     /**
      * @test
      */
-    public function liked_filter_works()
+    public function disliked_filter_works()
     {
         $response = $this->send(
             $this->request('GET', '/api/users')
                 ->withQueryParams([
-                    'filter' => ['liked' => 101],
+                    'filter' => ['disliked' => 101],
                 ])
         );
 
@@ -95,12 +95,12 @@ class ListPostsTest extends TestCase
     /**
      * @test
      */
-    public function liked_filter_works_negated()
+    public function disliked_filter_works_negated()
     {
         $response = $this->send(
             $this->request('GET', '/api/users')
             ->withQueryParams([
-                'filter' => ['-liked' => 101],
+                'filter' => ['-disliked' => 101],
             ])
         );
 
@@ -114,14 +114,14 @@ class ListPostsTest extends TestCase
     }
 
     /** @test */
-    public function likes_relation_returns_limited_results_and_shows_only_visible_posts_in_show_post_endpoint()
+    public function dislikes_relation_returns_limited_results_and_shows_only_visible_posts_in_show_post_endpoint()
     {
         // List posts endpoint
         $response = $this->send(
             $this->request('GET', '/api/posts/101', [
                 'authenticatedAs' => 2,
             ])->withQueryParams([
-                'include' => 'likes',
+                'include' => 'dislikes',
             ])
         );
 
@@ -129,18 +129,18 @@ class ListPostsTest extends TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
 
-        $likes = $data['relationships']['likes']['data'];
+        $dislikes = $data['relationships']['dislikes']['data'];
 
-        // Only displays a limited amount of likes
-        $this->assertCount(LoadLikesRelationship::$maxLikes, $likes);
-        // Displays the correct count of likes
-        $this->assertEquals(11, $data['attributes']['likesCount']);
-        // Of the limited amount of likes, the actor always appears
-        $this->assertEquals([2, 102, 104, 105], Arr::pluck($likes, 'id'));
+        // Only displays a limited amount of dislikes
+        $this->assertCount(LoadDislikesRelationship::$maxDislikes, $dislikes);
+        // Displays the correct count of dislikes
+        $this->assertEquals(11, $data['attributes']['dislikesCount']);
+        // Of the limited amount of dislikes, the actor always appears
+        $this->assertEquals([2, 102, 104, 105], Arr::pluck($dislikes, 'id'));
     }
 
     /** @test */
-    public function likes_relation_returns_limited_results_and_shows_only_visible_posts_in_list_posts_endpoint()
+    public function dislikes_relation_returns_limited_results_and_shows_only_visible_posts_in_list_posts_endpoint()
     {
         // List posts endpoint
         $response = $this->send(
@@ -148,7 +148,7 @@ class ListPostsTest extends TestCase
                 'authenticatedAs' => 2,
             ])->withQueryParams([
                 'filter' => ['discussion' => 100],
-                'include' => 'likes',
+                'include' => 'dislikes',
             ])
         );
 
@@ -156,21 +156,21 @@ class ListPostsTest extends TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
 
-        $likes = $data[0]['relationships']['likes']['data'];
+        $dislikes = $data[0]['relationships']['dislikes']['data'];
 
-        // Only displays a limited amount of likes
-        $this->assertCount(LoadLikesRelationship::$maxLikes, $likes);
-        // Displays the correct count of likes
-        $this->assertEquals(11, $data[0]['attributes']['likesCount']);
-        // Of the limited amount of likes, the actor always appears
-        $this->assertEquals([2, 102, 104, 105], Arr::pluck($likes, 'id'));
+        // Only displays a limited amount of dislikes
+        $this->assertCount(LoadDislikesRelationship::$maxDislikes, $dislikes);
+        // Displays the correct count of dislikes
+        $this->assertEquals(11, $data[0]['attributes']['dislikesCount']);
+        // Of the limited amount of dislikes, the actor always appears
+        $this->assertEquals([2, 102, 104, 105], Arr::pluck($dislikes, 'id'));
     }
 
     /**
-     * @dataProvider likesIncludeProvider
+     * @dataProvider dislikesIncludeProvider
      * @test
      */
-    public function likes_relation_returns_limited_results_and_shows_only_visible_posts_in_show_discussion_endpoint(string $include)
+    public function dislikes_relation_returns_limited_results_and_shows_only_visible_posts_in_show_discussion_endpoint(string $include)
     {
         // Show discussion endpoint
         $response = $this->send(
@@ -183,27 +183,27 @@ class ListPostsTest extends TestCase
 
         $included = json_decode($response->getBody()->getContents(), true)['included'];
 
-        $likes = collect($included)
+        $dislikes = collect($included)
             ->where('type', 'posts')
             ->where('id', 101)
-            ->first()['relationships']['likes']['data'];
+            ->first()['relationships']['dislikes']['data'];
 
-        // Only displays a limited amount of likes
-        $this->assertCount(LoadLikesRelationship::$maxLikes, $likes);
-        // Displays the correct count of likes
+        // Only displays a limited amount of dislikes
+        $this->assertCount(LoadDislikesRelationship::$maxDislikes, $dislikes);
+        // Displays the correct count of dislikes
         $this->assertEquals(11, collect($included)
             ->where('type', 'posts')
             ->where('id', 101)
-            ->first()['attributes']['likesCount']);
-        // Of the limited amount of likes, the actor always appears
-        $this->assertEquals([2, 102, 104, 105], Arr::pluck($likes, 'id'));
+            ->first()['attributes']['dislikesCount']);
+        // Of the limited amount of dislikes, the actor always appears
+        $this->assertEquals([2, 102, 104, 105], Arr::pluck($dislikes, 'id'));
     }
 
-    public function likesIncludeProvider(): array
+    public function dislikesIncludeProvider(): array
     {
         return [
-            ['posts,posts.likes'],
-            ['posts.likes'],
+            ['posts,posts.dislikes'],
+            ['posts.dislikes'],
             [''],
         ];
     }

@@ -1,20 +1,20 @@
 import app from 'flarum/admin/app';
 
-app.initializers.add('flarum-likes', () => {
+app.initializers.add('flarum-dislikes', () => {
   app.extensionData
-    .for('flarum-likes')
+    .for('flarum-dislikes')
     .registerPermission(
       {
-        icon: 'far fa-thumbs-up',
-        label: app.translator.trans('flarum-likes.admin.permissions.like_posts_label'),
-        permission: 'discussion.likePosts',
+        icon: 'far fa-thumbs-down',
+        label: app.translator.trans('flarum-dislikes.admin.permissions.dislike_posts_label'),
+        permission: 'discussion.dislikePosts',
       },
       'reply'
     )
     .registerSetting({
-      setting: 'flarum-likes.like_own_post',
+      setting: 'flarum-dislikes.dislike_own_post',
       type: 'bool',
-      label: app.translator.trans('flarum-likes.admin.settings.like_own_posts_label'),
-      help: app.translator.trans('flarum-likes.admin.settings.like_own_posts_help'),
+      label: app.translator.trans('flarum-dislikes.admin.settings.dislike_own_posts_label'),
+      help: app.translator.trans('flarum-dislikes.admin.settings.dislike_own_posts_help'),
     });
 });

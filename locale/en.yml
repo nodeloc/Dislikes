@@ -1,4 +1,4 @@
-flarum-likes:
+flarum-dislikes:
 
   ##
   # UNIQUE KEYS - The following keys are used in only one location each.
@@ -9,11 +9,11 @@ flarum-likes:
 
     # These translations are used in the Permissions page of the admin interface.
     permissions:
-      like_posts_label: Like posts
+      dislike_posts_label: Dislike posts
 
     settings:
-      like_own_posts_help: When enabled, subject to permission, users may 'like' their own posts on the forum. To prevent users placing a 'like' on their own posts, disable this setting.
-      like_own_posts_label: Users may like their own posts
+      dislike_own_posts_help: When enabled, subject to permission, users may 'dislike' their own posts on the forum. To prevent users placing a 'dislike' on their own posts, disable this setting.
+      dislike_own_posts_label: Users may dislike their own posts
 
   # Translations in this namespace are used by the forum user interface.
   forum:
@@ -21,26 +21,26 @@ flarum-likes:
     # These translations are used by the Notifications dropdown, a.k.a. "the bell".
     notifications:
       others_text: => core.ref.some_others
-      post_liked_text: "{username} liked your post"  # Can be pluralized to agree with the number of users!
+      post_disliked_text: "{username} disliked your post"  # Can be pluralized to agree with the number of users!
 
     # These translations are displayed beneath individual posts.
     post:
-      like_link: Like
-      liked_by_self_text: "{users} like this."  # Can be pluralized to agree with the number of users!
-      liked_by_text: "{count, plural, one {{users} likes this} other {{users} like this}}."
+      dislike_link: Dislike
+      disliked_by_self_text: "{users} dislike this."  # Can be pluralized to agree with the number of users!
+      disliked_by_text: "{count, plural, one {{users} dislikes this} other {{users} dislike this}}."
       others_link: => core.ref.some_others
-      unlike_link: Unlike
+      undislike_link: Undislike
       you_text: => core.ref.you
 
-    # These translations are used by the Users Who Like This modal dialog.
-    post_likes:
-      title: Users Who Like This
+    # These translations are used by the Users Who Dislike This modal dialog.
+    post_dislikes:
+      title: Users Who Dislike This
       load_more_button: => core.ref.load_more
 
     # These translations are used in the Settings page.
     settings:
-      notify_post_liked_label: Someone likes one of my posts
+      notify_post_disliked_label: Someone dislikes one of my posts
 
     # These translations are used in the User profile page.
     user:
-      likes_link: Likes
+      dislikes_link: Dislikes

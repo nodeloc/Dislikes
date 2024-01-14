@@ -6,21 +6,21 @@ import username from 'flarum/common/helpers/username';
 import type { IInternalModalAttrs } from 'flarum/common/components/Modal';
 import type Post from 'flarum/common/models/Post';
 import type Mithril from 'mithril';
-import PostLikesModalState from '../states/PostLikesModalState';
+import PostDislikesModalState from '../states/PostDislikesModalState';
 import Button from 'flarum/common/components/Button';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 
-export interface IPostLikesModalAttrs extends IInternalModalAttrs {
+export interface IPostDislikesModalAttrs extends IInternalModalAttrs {
   post: Post;
 }
 
-export default class PostLikesModal<CustomAttrs extends IPostLikesModalAttrs = IPostLikesModalAttrs> extends Modal<CustomAttrs, PostLikesModalState> {
+export default class PostDislikesModal<CustomAttrs extends IPostDislikesModalAttrs = IPostDislikesModalAttrs> extends Modal<CustomAttrs, PostDislikesModalState> {
   oninit(vnode: Mithril.VnodeDOM<CustomAttrs, this>) {
     super.oninit(vnode);
 
-    this.state = new PostLikesModalState({
+    this.state = new PostDislikesModalState({
       filter: {
-        liked: this.attrs.post.id()!,
+        disliked: this.attrs.post.id()!,
       },
     });
 
@@ -28,11 +28,11 @@ export default class PostLikesModal<CustomAttrs extends IPostLikesModalAttrs = I
   }
 
   className() {
-    return 'PostLikesModal Modal--small';
+    return 'PostDislikesModal Modal--small';
   }
 
   title() {
-    return app.translator.trans('flarum-likes.forum.post_likes.title');
+    return app.translator.trans('flarum-dislikes.forum.post_dislikes.title');
   }
 
   content() {
@@ -42,7 +42,7 @@ export default class PostLikesModal<CustomAttrs extends IPostLikesModalAttrs = I
           {this.state.isInitialLoading() ? (
             <LoadingIndicator />
           ) : (
-            <ul className="PostLikesModal-list">
+            <ul className="PostDislikesModal-list">
               {this.state.getPages().map((page) =>
                 page.items.map((user) => (
                   <li>
@@ -60,7 +60,7 @@ export default class PostLikesModal<CustomAttrs extends IPostLikesModalAttrs = I
             <div className="Form Form--centered">
               <div className="Form-group">
                 <Button className="Button Button--block" onclick={() => this.state.loadNext()} loading={this.state.isLoadingNext()}>
-                  {app.translator.trans('flarum-likes.forum.post_likes.load_more_button')}
+                  {app.translator.trans('flarum-dislikes.forum.post_dislikes.load_more_button')}
                 </Button>
               </div>
             </div>

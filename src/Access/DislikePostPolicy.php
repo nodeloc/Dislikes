@@ -7,14 +7,14 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Access;
+namespace Flarum\Dislikes\Access;
 
 use Flarum\Post\Post;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Access\AbstractPolicy;
 use Flarum\User\User;
 
-class LikePostPolicy extends AbstractPolicy
+class DislikePostPolicy extends AbstractPolicy
 {
     /**
      * @var SettingsRepositoryInterface
@@ -26,9 +26,9 @@ class LikePostPolicy extends AbstractPolicy
         $this->settings = $settings;
     }
 
-    public function like(User $actor, Post $post)
+    public function dislike(User $actor, Post $post)
     {
-        if ($actor->id === $post->user_id && ! (bool) $this->settings->get('flarum-likes.like_own_post')) {
+        if ($actor->id === $post->user_id && ! (bool) $this->settings->get('flarum-dislikes.dislike_own_post')) {
             return $this->deny();
         }
     }

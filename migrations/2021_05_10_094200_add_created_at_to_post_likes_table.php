@@ -9,7 +9,7 @@
 
 use Flarum\Database\Migration;
 
-return Migration::addColumns('post_likes', [
+return Migration::addColumns('post_dislikes', [
     'created_at' => [
         'timestamp',
         'null' => false,

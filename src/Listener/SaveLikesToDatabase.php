@@ -7,15 +7,15 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Listener;
+namespace Flarum\Dislikes\Listener;
 
-use Flarum\Likes\Event\PostWasLiked;
-use Flarum\Likes\Event\PostWasUnliked;
+use Flarum\Dislikes\Event\PostWasDisliked;
+use Flarum\Dislikes\Event\PostWasUndisliked;
 use Flarum\Post\Event\Deleted;
 use Flarum\Post\Event\Saving;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class SaveLikesToDatabase
+class SaveDislikesToDatabase
 {
     /**
      * @param Dispatcher $events
@@ -34,22 +34,22 @@ class SaveLikesToDatabase
         $post = $event->post;
         $data = $event->data;
 
-        if ($post->exists && isset($data['attributes']['isLiked'])) {
+        if ($post->exists && isset($data['attributes']['isDisliked'])) {
             $actor = $event->actor;
-            $liked = (bool) $data['attributes']['isLiked'];
+            $disliked = (bool) $data['attributes']['isDisliked'];
 
-            $actor->assertCan('like', $post);
+            $actor->assertCan('dislike', $post);
 
-            $currentlyLiked = $post->likes()->where('user_id', $actor->id)->exists();
+            $currentlyDisliked = $post->dislikes()->where('user_id', $actor->id)->exists();
 
-            if ($liked && ! $currentlyLiked) {
-                $post->likes()->attach($actor->id);
+            if ($disliked && ! $currentlyDisliked) {
+                $post->dislikes()->attach($actor->id);
 
-                $post->raise(new PostWasLiked($post, $actor));
-            } elseif ($currentlyLiked) {
-                $post->likes()->detach($actor->id);
+                $post->raise(new PostWasDisliked($post, $actor));
+            } elseif ($currentlyDisliked) {
+                $post->dislikes()->detach($actor->id);
 
-                $post->raise(new PostWasUnliked($post, $actor));
+                $post->raise(new PostWasUndisliked($post, $actor));
             }
         }
     }
@@ -59,6 +59,6 @@ class SaveLikesToDatabase
      */
     public function whenPostIsDeleted(Deleted $event)
     {
-        $event->post->likes()->detach();
+        $event->post->dislikes()->detach();
     }
 }

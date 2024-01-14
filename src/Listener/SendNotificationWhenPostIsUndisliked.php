@@ -7,13 +7,13 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Listener;
+namespace Flarum\Dislikes\Listener;
 
-use Flarum\Likes\Event\PostWasUnliked;
-use Flarum\Likes\Notification\PostLikedBlueprint;
+use Flarum\Dislikes\Event\PostWasUndisliked;
+use Flarum\Dislikes\Notification\PostDislikedBlueprint;
 use Flarum\Notification\NotificationSyncer;
 
-class SendNotificationWhenPostIsUnliked
+class SendNotificationWhenPostIsUndisliked
 {
     /**
      * @var NotificationSyncer
@@ -28,11 +28,11 @@ class SendNotificationWhenPostIsUnliked
         $this->notifications = $notifications;
     }
 
-    public function handle(PostWasUnliked $event)
+    public function handle(PostWasUndisliked $event)
     {
         if ($event->post->user && $event->post->user->id != $event->user->id) {
             $this->notifications->sync(
-                new PostLikedBlueprint($event->post, $event->user),
+                new PostDislikedBlueprint($event->post, $event->user),
                 []
             );
         }

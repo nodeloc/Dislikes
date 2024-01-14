@@ -9,4 +9,4 @@
 
 use Flarum\Database\Migration;
 
-return Migration::renameTable('posts_likes', 'post_likes');
+return Migration::renameTable('posts_dislikes', 'post_dislikes');

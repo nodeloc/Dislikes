@@ -7,13 +7,13 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Notification;
+namespace Flarum\Dislikes\Notification;
 
 use Flarum\Notification\Blueprint\BlueprintInterface;
 use Flarum\Post\Post;
 use Flarum\User\User;
 
-class PostLikedBlueprint implements BlueprintInterface
+class PostDislikedBlueprint implements BlueprintInterface
 {
     /**
      * @var Post
@@ -63,7 +63,7 @@ class PostLikedBlueprint implements BlueprintInterface
      */
     public static function getType()
     {
-        return 'postLiked';
+        return 'postDisliked';
     }
 
     /**

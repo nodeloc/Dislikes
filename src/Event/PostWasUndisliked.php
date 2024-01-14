@@ -7,12 +7,12 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Flarum\Likes\Event;
+namespace Flarum\Dislikes\Event;
 
 use Flarum\Post\Post;
 use Flarum\User\User;
 
-class PostWasLiked
+class PostWasUndisliked
 {
     /**
      * @var Post

@@ -15,7 +15,7 @@ return [
         // Delete rows with non-existent entities so that we will be able to create
         // foreign keys without any issues.
         $schema->getConnection()
-            ->table('post_likes')
+            ->table('post_dislikes')
             ->whereNotExists(function ($query) {
                 $query->selectRaw(1)->from('posts')->whereColumn('id', 'post_id');
             })
@@ -24,14 +24,14 @@ return [
             })
             ->delete();
 
-        $schema->table('post_likes', function (Blueprint $table) {
+        $schema->table('post_dislikes', function (Blueprint $table) {
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     },
 
     'down' => function (Builder $schema) {
-        $schema->table('post_likes', function (Blueprint $table) {
+        $schema->table('post_dislikes', function (Blueprint $table) {
             $table->dropForeign(['post_id']);
             $table->dropForeign(['user_id']);
         });
