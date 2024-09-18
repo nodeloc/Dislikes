@@ -44,3 +44,9 @@ nodeloc-dislikes:
     # These translations are used in the User profile page.
     user:
       dislikes_link: Dislikes
+    undislike_confirmation_title: Confirm cancel Dislike
+    undislike_confirmation_text: Cancel isliking this post will return your cost energy. Are you sure?
+    confirm_undislike: Yes, Cancel Dislike
+    dislike_confirmation_title: Confirm Dislike
+    dislike_confirmation_text: Disliking this post will cost 2 energy. Are you sure?
+    confirm_dislike: Yes, Dislike

@@ -19,6 +19,12 @@ nodeloc-dislikes:
     post_dislikes:
       title: 点踩的用户
     settings:
-      notify_post_liked_label: 有人踩我
+      notify_post_disliked_label: 有人踩我
     user:
       dislikes_link: 踩
+    undislike_confirmation_title: 踩错了么？
+    undislike_confirmation_text: 取消踩会取消扣被踩人的能量，但不会返还您的能量，确认继续么？
+    confirm_undislike: 继续
+    dislike_confirmation_title: 真的要踩一脚么？
+    dislike_confirmation_text: 踩这一脚将会消耗您 2 能量，并扣对方 1 能量，确定要踩么?
+    confirm_dislike: 继续
